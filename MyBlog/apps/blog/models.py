@@ -3,6 +3,8 @@ from datetime import datetime
 from django.db import models
 from django.contrib.auth import get_user_model
 
+from DjangoUeditor.models import UEditorField
+
 User = get_user_model()
 
 
@@ -36,7 +38,10 @@ class Article(models.Model):
     title = models.CharField(max_length=100, verbose_name='标题')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='文章分类')
     tags = models.ManyToManyField(Tags, verbose_name='标签')
-    content = models.TextField(verbose_name='文章内容')
+    content = UEditorField(verbose_name='文章内容', width=800, height=500,
+                    toolbars="full", imagePath="articleimg/", filePath="articlefile/",
+                    upload_settings={"imageMaxSize": 1204000},
+                    settings={}, command=None, blank=True)
     img_link = models.CharField(verbose_name='图片地址', default=IMG_LINK, max_length=255)
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='作者')
     scan_num = models.PositiveIntegerField(max_length=10, verbose_name='浏览量')
@@ -55,8 +60,8 @@ class Article(models.Model):
 class Banner(models.Model):
     order_index = models.IntegerField(max_length=10, verbose_name='轮播顺序')
     title = models.CharField(null=True, blank=True, max_length=100, verbose_name='标题')
-    img = models.ImageField(verbose_name='图片')
-    link_url = models.URLField(verbose_name='链接地址')
+    img = models.ImageField(verbose_name='图片', upload_to='banner/')
+    link_url = models.URLField(verbose_name='链接地址', max_length=100)
     is_active = models.BooleanField(verbose_name='是否激活')
 
     class Meta:

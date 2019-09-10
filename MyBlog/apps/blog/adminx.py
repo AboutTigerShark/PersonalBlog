@@ -7,6 +7,7 @@ class ArticleAdmin(object):
     list_display = ["title", "content", "img_link", "scan_num", "create_time"]
     search_fields = ['title', ]
     list_filter = ["title", "content", "img_link", "scan_num", "create_time"]
+    style_fields = {"content": "ueditor"}
 
 
 class TagsAdmin(object):
@@ -29,7 +30,7 @@ class FriendLinkAdmin(object):
     list_display = ["name", "link_url", "is_show"]
     list_editable = ['is_show', ]
 
-Tags
+
 xadmin.site.register(Article, ArticleAdmin)
 xadmin.site.register(Tags, TagsAdmin)
 xadmin.site.register(Category, CategoryAdmin)
