@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.db import models
 from django.contrib.auth import get_user_model
+from uuslug import slugify
 
 from DjangoUeditor.models import UEditorField
 
@@ -9,7 +10,8 @@ User = get_user_model()
 
 
 class Tags(models.Model):
-    name = models.CharField(max_length=30, verbose_name='标签名称')
+    name = models.CharField(max_length=30, verbose_name='标签名称', unique=True)
+    slug = models.SlugField(unique=True, null=True)
 
     class Meta:
         db_table = 'tags'
@@ -19,9 +21,14 @@ class Tags(models.Model):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Tags, self).save(*args, **kwargs)
+
 
 class Category(models.Model):
     name = models.CharField(max_length=30, verbose_name='分类名称')
+    slug = models.SlugField(unique=True, null=True)
 
     class Meta:
         db_table = 'category'
@@ -32,26 +39,33 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)
+
 
 class Article(models.Model):
-    IMG_LINK = ''
+    IMG_LINK = 'front_img/default.jpg'
     title = models.CharField(max_length=100, verbose_name='标题')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='文章分类')
     tags = models.ManyToManyField(Tags, verbose_name='标签')
+    desc = models.CharField(max_length=200, verbose_name='文字简述', default='')
     content = UEditorField(verbose_name='文章内容', width=800, height=500,
                     toolbars="full", imagePath="articleimg/", filePath="articlefile/",
                     upload_settings={"imageMaxSize": 1204000},
                     settings={}, command=None, blank=True)
-    img_link = models.CharField(verbose_name='图片地址', default=IMG_LINK, max_length=255)
+    img_link = models.ImageField(verbose_name='封面图片', upload_to='front_img/', default=IMG_LINK, max_length=255)
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='作者')
     scan_num = models.PositiveIntegerField(max_length=10, verbose_name='浏览量')
     create_time = models.DateTimeField(verbose_name='发布时间', auto_now_add=True)
+    update_time = models.DateTimeField(verbose_name='修改时间', auto_now=True)
+    slug = models.SlugField(unique=True, null=True)
 
     class Meta:
         db_table = 'article'
         verbose_name = '文章'
         verbose_name_plural = verbose_name
-        ordering = ['-create_time']
+        ordering = ['-create_time']  # 默认为按时间排序
 
     def __str__(self):
         return self.title

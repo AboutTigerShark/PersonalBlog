@@ -14,6 +14,7 @@ class TagsAdmin(object):
     list_display = ['name']
     list_filter = ["name"]
     search_fields = ['name', ]
+    prepopulated_fields = {"slug": ("name",)}
 
 
 class CategoryAdmin(object):
