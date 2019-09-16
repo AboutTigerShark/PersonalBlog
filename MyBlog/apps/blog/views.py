@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from blog.models import Article, Tags, Category
 
@@ -30,7 +30,7 @@ class CategoryListView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(CategoryListView, self).get_context_data()
         cate = get_object_or_404(Category, slug=self.kwargs.get('slug'))
-        context['Category'] = cate.name
+        context['Category'] = cate
         return context
 
 
@@ -42,6 +42,7 @@ class TagsListView(ListView):
     def get_queryset(self, **kwargs):
         queryset = super(TagsListView, self).get_queryset()
         tag = get_object_or_404(Tags, slug=self.kwargs.get('slug'))
+        q = super().get_queryset()
         return queryset.filter(tags=tag)
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -49,3 +50,27 @@ class TagsListView(ListView):
         tag = get_object_or_404(Tags, slug=self.kwargs.get('slug'))
         context['Tags'] = tag
         return context
+
+
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = 'blog/show.html'
+    context_object_name = 'articles'
+
+    def get_queryset(self, **kwargs):
+        queryset = super(ArticleDetailView, self).get_queryset()
+        article = get_object_or_404(Article, slug=self.kwargs.get('slug'))
+        return queryset.filter(pk=article.id)
+
+    def get_context_data(self, **kwargs):
+        context = super(ArticleDetailView, self).get_context_data()
+        article = get_object_or_404(Article, slug=self.kwargs.get('slug'))
+        # article = Article.objects.get(pk=self.kwargs.get('slug'))
+        context['article_tags'] = article.tags.all()
+        return context
+
+
+class AllArticleListView(ListView):
+    model = Article
+    template_name = 'blog/blog_articles.html'
+    context_object_name = 'articles'

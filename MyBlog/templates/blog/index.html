@@ -42,18 +42,18 @@
                         <div class="article-box clearfix excerpt-1">
                             <div class="col-md-4">
                                 <div class="thumbnail">
-                                    <a href="/show-12.html" title="{{ article.title }}">
+                                    <a href="{% url 'article_detail' article.slug  %}" title="{{ article.title }}">
                                         <img src="/media/{{ article.img_link }}"
                                              srcset="/media/{{ article.img_link }}"
                                              alt="{{ article.title }}" class="wp-post-image" width="240" height="160"/></a>
                                 </div>
                             </div>
                             <div class="col-md-8">
-                                <h2><a href="/show-12.html" target="_blank" title="{{ article.title }}">{{ article.title }}</a></h2>
+                                <h2><a href="{% url 'article_detail' article.slug  %}" target="_blank" title="{{ article.title }}">{{ article.title }}</a></h2>
                                 <p class="txtcont hidden-xs"><a href="/" target="_blank"
                                                                 title="{{ article.title }}">{{ article.desc }}</a></p>
                                 <div class="meta"><span class="label label-info"><a
-                                        href="/category/{{ article.category.slug }}">{{ article.category.name }}</a></span>
+                                        href="{% url 'category_list' article.category.slug  %}">{{ article.category.name }}</a></span>
                                     <time class="item"><i class="fa fa-clock-o"></i>{{ article.create_time }}
                                     </time>
                                 </div>
@@ -79,7 +79,7 @@
                 <ol class="hot-list">
                     {% get_hot_article as hot_article_list %}
                     {% for article in  hot_article_list %}
-                        <li><a href="/show-3.html" title="{{ article.title }}">{{ article.title }}</a></li>
+                        <li><a href="{% url 'article_detail' article.slug  %}" title="{{ article.title }}">{{ article.title }}</a></li>
                     {% endfor %}
 
                 </ol>
@@ -90,7 +90,7 @@
                 <div class="tags">
                     {% get_all_tags as tags_list %}
                     {% for tag in tags_list %}
-                        <a href="/tags/{{ tag.slug }}">{{ tag.name }}</a>
+                        <a href="{% url 'tags_list' tag.slug  %}"></a>
                     {% endfor %}
                 </div>
             </section>

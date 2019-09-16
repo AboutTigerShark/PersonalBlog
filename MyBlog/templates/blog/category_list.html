@@ -3,11 +3,11 @@
 {% block content %}
     <div id="main-container" class="container clearfix">
         <section class="post-left">
-            <div class="breadcrumb">您的位置： <a itemprop="breadcrumb" href="/">首页</a> » <span
-                    class="current">Python</span></div>
+            <div class="breadcrumb">您的位置： <a itemprop="breadcrumb" href="{% url 'index' %}">首页</a> » <span
+                    class="current">文章分类</span></div>
             <div class="index-main clearfix">
                 <div class="main-title">
-                    <h4 class="post-left-title">分类：{{ Category }}</h4>
+                    <h4 class="post-left-title">分类：{{ Category.name }}</h4>
                 </div>
                 <div class="row">
                         <div class="tab" role="tabpanel">
@@ -26,19 +26,19 @@
                         <div class="article-box clearfix excerpt-1">
                             <div class="col-md-4">
                                 <div class="thumbnail">
-                                    <a href="/show-2.html" title="{{ article.title }}">
+                                    <a href="{% url 'article_detail' article.slug %}" title="{{ article.title }}">
                                         <img src="/media/{{ article.img_link }}"
                                              alt="{{ article.title }}" class="wp-post-image" width="240" height="160"/></a>
                                 </div>
                             </div>
                             <div class="col-md-8">
-                                <h2><a href="/show-2.html" target="_blank"
+                                <h2><a href="{% url 'article_detail' article.slug %}" target="_blank"
                                        title="{{ article.title }}">{{ article.title }}</a></h2>
-                                <p class="txtcont hidden-xs"><a href="/show-2.html"
+                                <p class="txtcont hidden-xs"><a href="{% url 'article_detail' article.slug %}"
                                                                 target="_blank"
                                                                 title="{{ article.title }}">{{ article.desc }}</a></p>
                                 <div class="meta"><span class="label label-info"><a
-                                        href="/category/{{ Category }}/">{{ Category }}</a></span>
+                                        href="{% url 'category_list' Category.slug %}">{{ Category }}</a></span>
                                     <time class="item"><i
                                             class="fa fa-clock-o"></i>{{ article.create_time }}
                                     </time>
@@ -58,19 +58,19 @@
                         <div class="article-box clearfix excerpt-1">
                             <div class="col-md-4">
                                 <div class="thumbnail">
-                                    <a href="/show-7.html" title="{{ hot.title }}">
+                                    <a href="{% url 'article_detail' hot.slug %}" title="{{ hot.title }}">
                                         <img src="/media/{{ hot.img_link }}"
                                              alt="网站设计-不只是门面漂亮这么简单" class="wp-post-image" width="240" height="160"/></a>
                                 </div>
                             </div>
                             <div class="col-md-8">
-                                <h2><a href="/show-7.html" target="_blank"
+                                <h2><a href="{% url 'article_detail' hot.slug %}" target="_blank"
                                        title="{{ hot.title }}">{{ hot.title }}</a></h2>
-                                <p class="txtcont hidden-xs"><a href="/show-7.html"
+                                <p class="txtcont hidden-xs"><a href="{% url 'article_detail' hot.slug %}"
                                                                 target="_blank"
                                                                 title="{{ hot.title }}">{{ hot.desc }}</a></p>
                                 <div class="meta"><span class="label label-info"><a
-                                        href="/category/{{ Category }}/">{{ Category }}</a></span>
+                                        href="{% url 'category_list' Category.slug %}">{{ Category.slug }}</a></span>
                                     <time class="item"><i
                                             class="fa fa-clock-o"></i>{{ hot.create_time }}
                                     </time>

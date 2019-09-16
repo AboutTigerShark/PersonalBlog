@@ -3,35 +3,30 @@
     <!-- /主体 -->
     <div id="main-container" class="container clearfix">
         <section class="post-left">
-            <div class="breadcrumb">您的位置： <a itemprop="breadcrumb" href="/">首页</a> » <a
-                    href="/list-2.html">Python</a> »
+            <div class="breadcrumb">您的位置： <a itemprop="breadcrumb" href="{% url 'index' %}">首页</a> » <a
+                    href="{% url 'all_articles' %}">博客</a> »
                 <span class="current">正文</span></div>
             <div class="post-main clearfix">
-                <h1 class="post-title">网站设计-不只是门面漂亮这么简单</h1>
+                <h1 class="post-title">{{ articles.title }}</h1>
                 <div class="post-con clearfix">
                     <div class="article-meta">
-                        <span class="item">分类：<a href="/list-2.html" rel="category tag">Python</a></span>
-                        <span class="item">作者：admin</span>
-                        <span class="item">浏览：43</span>
-                        <span class="item">2018年10月7日 17:58</span>
+                        <span class="item">分类：<a href="{% url 'all_articles' %}" rel="category tag">{{ articles.category.name }}</a></span>
+                        <span class="item">作者：{{ articles.user.username }}</span>
+                        <span class="item">浏览：{{ articles.scan_num }}</span>
+                        <span class="item">{{ articles.create_time }}</span>
 
                     </div>
+                    {% autoescape off %}
                     <article class="article-content">
-                        <p>有人将电子商务网站的视觉设计视为纯粹的美学行为，事实上它还有另外一个很重要的作用，浏览体验。如果运用的好的话，色彩、字体等设计元素能够成功地将访客引导到某一个页面，凸显产品的特征。而较差的浏览体验会分散访客的注意力，进而减少了销售。</p><p>Josh Levine，网站设计公司Alexander
- 
-Interactive的创始人兼首席创作体验官，在前不久召开的“网络零售网站设计及可用性大会”上，以“色彩、标题、字体：优秀设计的基础”为题阐述了优秀的设计应该具备的元素并列举了设计实例进行说明。Sari
- Levine ，Lowe’s 
-Cos公司创意&amp;用户体验负责人分享了Lowe公司的网站从1998年创立伊始只卖单一产品——书——发展到现在吸收有效的视觉设计原理的演化过程。</p><p>Josh 
-Levine发现，布局、色彩安排、摄影以及艺术学院里学到的其他表现原理，“如果不能充分利用这些设计学院学到的工具，你就可能丢失一部分销售。”他以零售商UnderArmour如何通过红色和黑色传递勇敢和男子气为例说明如何发挥色彩的有效性。他们所要销售的是高档紧身运动服。而同样是红色和黑色主题当被宠物食品网站应用时却会不合时宜。</p><p><img title="web1" src="../../static/picture/web1.jpg" alt="" data-tag="bdshare" width="550" height="300"/></p><p>Levine还分享了如何通过合适的摄影技术增强文本信息来吸引眼球。视线轨迹研究表明，一个婴儿的面部照片比网页上的文字描述更能吸引浏览者的注意，而那种在看文字的婴儿侧脸更容易吸引人们关注文本。他还讨论了网站运营商与设计者之间的紧张状态，运营商希望商品图片和促销活动尽可能填满页面，而设计者则极力反对这种做法，而是“主张空白，抵制零乱”，认为内容过多的页面会造成浏览者的阅读混乱。</p><p>Sari
-Levine论述了Lowes.com网站的发展过程，如何应用优秀的设计理念辅助引导使主页更具吸引力。在过去的18个月里，Lowe’s增强了字体的应用，使字体成为连接一个页面关键区域的桥梁，并通过照片和文字结合来让分类页面内容变得清晰。她说，Lowe’s还通过贴心的设计改善了主页的效能，在网站入口处为不同类型的客户提供服务。以此为目的，通过色彩、排版、留白将访客的注意力吸引到页面不同的区域。主页上的不同重点设计——首页以大图显示——以特定的色彩吸引不同的消费者。</p><p>他们通过不同的字体将顾客引导至所需商品，而不是让顾客自己寻找。Sari 
-Levine补充道，大多数情况下同样的设计原则也可以用来建立有效地移动网站，甚至有些设计在移动网站上的应用效果比电子商务网站的效果更好。当设计移动网站时，要去除所有不必要的信息，否者会导致销售的流失。</p><p><br/></p>
+                     {{ articles.content }}
                     </article>
+                    {% endautoescape %}
 
                     <div class="post-tag"><span class="fa fa-tags" aria-hidden="true"></span>标签：
-                        
-                            <a href="/tag/Python教程" rel="tag">Python教程</a>
-                        
-                            <a href="/tag/Django教程" rel="tag">Django教程</a>
+                        {% for tags in article_tags %}
+                            <a href="{% url 'tags_list' tags.slug  %}" rel="tag">{{ tags.name }}</a>
+                        {% endfor %}
+
                         
                     </div>
                     <div>

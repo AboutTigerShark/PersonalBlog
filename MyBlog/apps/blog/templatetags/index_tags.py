@@ -1,7 +1,8 @@
 # coding:utf-8
 from django import template
+from django.db.models import Count
 
-from blog.models import Article, Banner, Tags, FriendLink
+from blog.models import Article, Banner, Tags, FriendLink, Category
 
 register = template.Library()
 
@@ -31,8 +32,16 @@ def get_all_tags():
     获取所有标签
     :return:
     """
-    tags = Tags.objects.all()[:10]
-    return tags
+    return Tags.objects.annotate(total_num=Count('article')).filter(total_num__gt=0)
+
+
+@register.simple_tag()
+def get_all_category():
+    """
+    获取所有分类
+    :return:
+    """
+    return Category.objects.annotate(total_num=Count('article')).filter(total_num__gt=0)
 
 
 @register.simple_tag()
