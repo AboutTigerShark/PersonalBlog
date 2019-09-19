@@ -17,12 +17,14 @@ Including another URLconf
 from django.urls import path, re_path, include
 from django.views.static import serve
 import xadmin
-from blog import views
-from .settings import MEDIA_ROOT
+from .settings import MEDIA_ROOT, STATICFILES_DIRS
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
     re_path(r'^xadmin/', xadmin.site.urls),
     re_path(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),  # 能直接访问media文件
-    path('', include('blog.urls'))
+    # re_path(r'^static/(?P<path>.*)$', serve, {'document_root': STATICFILES_DIRS}, name='static'),
+    path('', include('blog.urls')),
+    path('accounts/', include('oauth.urls')),
+    path('accounts/', include('allauth.urls')),
 ]

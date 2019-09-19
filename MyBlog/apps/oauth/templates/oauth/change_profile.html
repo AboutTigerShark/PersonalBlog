@@ -1,0 +1,33 @@
+{% extends 'account/base.html' %}
+{% load static %}
+{% block form %}
+
+
+
+
+            <div class="card rounded-0 px-3 px-lg-4">
+                <div class="card-header text-center bg-white py-2"><h3 class="my-1 text-info">修改资料</h3></div>
+                <div class="card-body">
+                    <form class="fh5co-form animate-box" method="post" enctype="multipart/form-data"
+                          action="{% url 'oauth:change_profile'%}">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <br>
+                        <button class="btn btn-info btn-sm rounded-0" type="submit">更新资料</button>
+                    </form>
+                </div>
+                <div class="text-center mb-5" id="social-login">
+                    <br>
+
+                    <div class="more-link mt-3">
+                        <a class="btn btn-info btn-sm rounded-0 mx-3" href="{% url 'oauth:profile' %}">查看资料</a>
+                        <a class="btn btn-info btn-sm rounded-0 mx-3" href="/accounts/password/change/">修改密码</a>
+                    </div>
+                </div>
+            </div>
+
+
+{% endblock %}
+
+
+

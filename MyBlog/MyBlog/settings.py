@@ -46,6 +46,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',  # 第三方登录
     'DjangoUeditor',
     'xadmin',
     'crispy_forms',
@@ -53,6 +58,26 @@ INSTALLED_APPS = [
     'blog',
     'oauth',
 ]
+SITE_ID = 1
+
+# allauth基本设置
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_REQUIRED = True
+LOGIN_REDIRECT_URL = '/index/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/index/'  # 注销后跳转
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+# 邮箱设定
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = '781977456@qq.com' # 你的 QQ 账号和授权码
+EMAIL_HOST_PASSWORD = 'unkoplhqepntbbfg'
+EMAIL_USE_TLS = True  # 这里必须是 True，否则发送不成功
+EMAIL_FROM = '781977456@qq.com'  # 你的 QQ 账号
+DEFAULT_FROM_EMAIL = '781977456@qq.com'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -78,6 +103,11 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+        'libraries': {
+            'my_customer_tags': 'blog.templatetags.index_tags',
+            'my_customer_tags1': 'oauth.templatetags.oauth_tags',
+
+        },
         },
     },
 ]

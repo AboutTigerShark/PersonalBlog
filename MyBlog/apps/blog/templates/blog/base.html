@@ -1,0 +1,127 @@
+{% load staticfiles  %}
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="x-dns-prefetch-control" content="on" />
+<meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-title" content="PythonTOP,拓普Python学院">
+<title>拓普Python学院,Python!</title>
+
+<link rel='stylesheet' id='bootstrap-css' href='{% static "blog/css/bootstrap.min.css" %}' type='text/css' media='all' />
+<link rel='stylesheet' id='fontawesome-css' href='{% static "blog/css/font-awesome.min.css" %}' type='text/css' media='all' />
+<link rel='stylesheet' id='stylesheet-css' href='{% static "blog/css/style.css" %}'  type='text/css' media='all' />
+<link rel='stylesheet' id='raxus-css' href='{% static "blog/css/raxus.css" %}' type='text/css' media='all' />
+<link rel='stylesheet' id='open-social-style-css' href='{% static "blog/css/os.css" %}' type='text/css' media='all' />
+<meta name='robots' content='index,follow' />
+<meta name="keywords" content="互联网,产品经理,产品设计,用户体验,交互设计,网站运营,移动互联网">
+<meta name="description" content="聚焦互联网前沿资讯，网络精华内容，交流产品心得。 每天为你速递最新、最鲜、最有料的互联网科技资讯！">
+{% block head %}
+
+{% endblock %}
+</head>
+
+<body class="home blog site-layout-2">
+
+<!-- 头部 -->
+<header class="fix-wrap" id="fix-wrap">
+<div class="fix-main clearfix pr" id="fix-main" _hover-ignore="1"> <a href="{% url 'index' %}" class="index-logo">
+    <img src="{% static "blog/picture/black-logo.jpg" %}" alt="拓普Python学院,Python!"></a>
+<nav class="nav fl">
+    <ul id="fix-list" class="fix-list clearfix">
+
+<li id="menu-item-24086" class="menu-item"><a href="{% url 'index' %}">首页</a></li>
+
+<li id="menu-item-117720" class="menu-item">
+ <a href="{% url 'all_articles' %}">博客</a></li>
+
+<li id="menu-item-117720" class="menu-item">
+ <a href="/list-2.html">时间轴</a></li>
+
+<li id="menu-item-117720" class="menu-item">
+ <a href="/list-3.html">实用工具</a></li>
+
+
+<li id="menu-item-24086" class="menu-item"><a href="/about/">关于博主</a></li>
+
+
+</ul>
+</nav>
+    <form method="get" class="index-search  hidden-xs" action="/s/" >
+        <input class="text" name="search" type="text" placeholder="输入关键字" value="">
+        <button class="submit" type="submit"><i class="fa fa-search"></i></button>
+    </form>
+    <div class="login_register">
+        {% if user.is_authenticated %}
+          <div class="wrapper-demo">
+            <!-----start-wrapper-dropdown-2---->
+            <div id="dd" class="wrapper-dropdown-2"><span><img src="/media/upic/default.png"/></span>
+                <ul class="dropdown">
+                    <li><a href="{% url 'oauth:profile' %}" title="个人资料"><i class="icon stat"></i></a></li>
+                    <li><a href="#" title="消息"><i class="icon"></i> </a></li>
+<!--                    <li><a href="#"><i class="icon msg"></i></a></li>-->
+                    <li><a href="/accounts/logout/" title="退出"><i class="icon signout"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        {% else %}
+        <a class="register-link" href="/accounts/signup/">注册</a>
+        <a class="login_link" href="/accounts/login/">登录</a>
+        {% endif %}
+    </div>
+    </div>
+</div>
+
+</header>
+{% block content%}{% endblock %}
+
+<!-- 底部 -->
+{#<footer class="footer">#}
+{#<div class="copyright"> © 2010- 2018 · All Rights Reserved#}
+{#    · <a href="https://www.django.cn">TigerShark个人博客</a>#}
+{#    · <a href="http://www.miibeian.gov.cn" target="_blank">湘ICP备17023990号</a> 版权所有 © TigerShark</div>#}
+{#</footer>#}
+{% block footer %}
+
+{% endblock %}
+<script src="{% static "blog/js/bundle.js" %}"></script>
+<script type="text/javascript" src="{% static "blog/js/view-history.js" %}"></script>
+<script type='text/javascript' src="{% static "blog/js/push.js" %}"></script>
+<script type='text/javascript' src='{% static "blog/js/jquery.min.js" %}'></script>
+<script type='text/javascript' src='{% static "blog/js/bootstrap.min.js" %}'></script>
+<script type='text/javascript' src='{% static "blog/js/raxus-slider.min.js" %}'></script>
+<script type='text/javascript' src='{% static "blog/js/loader.js" %}'></script>
+<script type='text/javascript' src='{% static "blog/js/bj-lazy-load.min.js" %}'></script>
+<script type='text/javascript' src='{% static "blog/js/os.js" %}'></script>
+<script type='text/javascript' src='{% static "blog/js/slider.js" %}'></script>
+
+<script type="text/javascript">
+    function DropDown(el) {
+        this.dd = el;
+        this.initEvents();
+    }
+    DropDown.prototype = {
+        initEvents : function() {
+            var obj = this;
+
+            obj.dd.on('click', function(event){
+                $(this).toggleClass('active');
+                event.stopPropagation();
+            });
+        }
+    }
+    $(function() {
+
+        var dd = new DropDown( $('#dd') );
+
+        $(document).click(function() {
+            // all dropdowns
+            $('.wrapper-dropdown-2').removeClass('active');
+        });
+
+    });
+</script>
+
+</body>
+</html>
