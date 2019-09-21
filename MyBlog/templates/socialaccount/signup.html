@@ -1,0 +1,24 @@
+{% extends "socialaccount/base.html" %}
+
+{% load i18n %}
+
+
+{% block form %}
+
+
+<p>{% blocktrans with provider_name=account.get_provider.name site_name=site.name %}您将要使用{{provider_name}}帐户登录到{{site_name}}。最后，请填写以下表格：
+{% endblocktrans %}</p>
+
+<form class="fh5co-form animate-box" data-animate-effect="fadeIn" id="signup_form" method="post" action="{% url 'socialaccount_signup' %}">
+  <h2>{% trans "Sign Up" %}</h2>
+  {% csrf_token %}
+  {{ form.as_p }}
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+<div class="form-group">
+  <button type="submit" class="btn btn-primary">{% trans "Sign Up" %}</button>
+</div>
+</form>
+
+{% endblock %}

@@ -17,6 +17,7 @@
         <option value="$MODULE_DIR$/MyBlog/apps/blog/templates" />
         <option value="$MODULE_DIR$/MyBlog/apps/oauth/templates" />
         <option value="$MODULE_DIR$/MyBlog/templates" />
+        <option value="$MODULE_DIR$/MyBlog/apps/comment/templates" />
       </list>
     </option>
   </component>

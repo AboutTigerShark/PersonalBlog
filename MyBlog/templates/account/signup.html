@@ -12,6 +12,7 @@
     <h2>注 册</h2>
      {% for field in form %}
     <div class="form-group">
+{#        {{ form.as_p }}#}
     {{ field.errors }}
     {{ field.label_tag }}&nbsp;&nbsp;{{ field }}
      {% if field.help_text %}

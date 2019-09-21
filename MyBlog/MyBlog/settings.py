@@ -50,21 +50,23 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.github',  # 第三方登录
+    'allauth.socialaccount.providers.baidu', # 第三方登录
     'DjangoUeditor',
     'xadmin',
     'crispy_forms',
     'imagekit',  # 上传图片的应用
     'blog',
     'oauth',
+    'comment',
 ]
-SITE_ID = 1
+SITE_ID = 2
 
 # allauth基本设置
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
 LOGIN_REDIRECT_URL = '/index/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/index/'  # 注销后跳转
+ACCOUNT_USERNAME_MIN_LENGTH = 5
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
@@ -106,6 +108,7 @@ TEMPLATES = [
         'libraries': {
             'my_customer_tags': 'blog.templatetags.index_tags',
             'my_customer_tags1': 'oauth.templatetags.oauth_tags',
+            'my_customer_tags2': 'comment.templatetags.comment_tags',
 
         },
         },

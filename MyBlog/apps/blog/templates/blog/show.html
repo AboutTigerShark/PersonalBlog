@@ -1,4 +1,12 @@
 ﻿{% extends 'blog/base.html' %}
+{% load comment_tags %}
+{% load static %}
+{% block head %}
+{% if user.is_authenticated %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+{% endif %}
+<link href="{% static 'comment/css/base_comment.css' %}?v=20180114.008" rel="stylesheet">
+{% endblock %}
 {% block content %}
     <!-- /主体 -->
     <div id="main-container" class="container clearfix">
@@ -30,16 +38,16 @@
                         
                     </div>
                     <div>
+                        {% if previous_article %}
                         <div><b>上一篇：</b>
-                            
-                                <a href="show-2.html" class="article-tag">博客列入12家估值飙升互联网创业企业 Quora第一</a>
-                            
+                            <a href="{% url 'article_detail' previous_article.id %}" class="article-tag">{{ previous_article.title }}</a>
                         </div>
+                         {% endif %}
+                        {% if next_article %}
                         <div><b>下一篇：</b>
-                            
-                                <a href="show-8.html" class="article-tag">谷歌用户体验设计准则</a>
-                            
+                            <a href="{% url 'article_detail' next_article.id %}" class="article-tag">{{ next_article.title }}</a>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
 
@@ -47,134 +55,16 @@
             <!-- /文章 -->
 
 
-            <div class="recommend  hidden-xs">
-
-                <div class="head clearfix"><span class="sp">您可能感兴趣的:</span></div>
-                <ul>
-                 
-                    <li>
-                        <div class="pic">
-                            <a href="/show-2.html" title="博客列入12家估值飙升互联网创业企业 Quora第一"><img
-                                    src="../../static/blog/picture/quora.png"
-                                    srcset="/media/article_img/2018/10/07/quora.png"
-                                    alt="博客列入12家估值飙升互联网创业企业 Quora第一" class="wp-post-image" width="145"
-                                    height="100"/></a>
-                        </div>
-                        <a class="descript " href="/show-2.html" rel="bookmark"
-                           title="博客列入12家估值飙升互联网创业企业 Quora第一">博客列入12家估值飙升互联网创业企业 Quora第一</a>
-                    </li>
-                
-                    <li>
-                        <div class="pic">
-                            <a href="/show-4.html" title="Firefox5新功能:社交共享 集成身份管理"><img
-                                    src="../../static/blog/picture/firefox503.jpg"
-                                    srcset="/media/article_img/2018/10/07/firefox503.jpg"
-                                    alt="Firefox5新功能:社交共享 集成身份管理" class="wp-post-image" width="145"
-                                    height="100"/></a>
-                        </div>
-                        <a class="descript " href="/show-4.html" rel="bookmark"
-                           title="Firefox5新功能:社交共享 集成身份管理">Firefox5新功能:社交共享 集成身份管理</a>
-                    </li>
-                
-                    <li>
-                        <div class="pic">
-                            <a href="/show-11.html" title="腾讯出品：制定设计的原则"><img
-                                    src="../../static/blog/picture/tx.jpg"
-                                    srcset="/media/article_img/2018/10/07/tx.jpg"
-                                    alt="腾讯出品：制定设计的原则" class="wp-post-image" width="145"
-                                    height="100"/></a>
-                        </div>
-                        <a class="descript " href="/show-11.html" rel="bookmark"
-                           title="腾讯出品：制定设计的原则">腾讯出品：制定设计的原则</a>
-                    </li>
-                
-                    <li>
-                        <div class="pic">
-                            <a href="/show-9.html" title="社交网络应故意设计得“不够完善”"><img
-                                    src="../../static/blog/picture/shejiaowangluo.jpg"
-                                    srcset="/media/article_img/2018/10/07/shejiaowangluo.jpg"
-                                    alt="社交网络应故意设计得“不够完善”" class="wp-post-image" width="145"
-                                    height="100"/></a>
-                        </div>
-                        <a class="descript " href="/show-9.html" rel="bookmark"
-                           title="社交网络应故意设计得“不够完善”">社交网络应故意设计得“不够完善”</a>
-                    </li>
-                
-                    <li>
-                        <div class="pic">
-                            <a href="/show-7.html" title="网站设计-不只是门面漂亮这么简单"><img
-                                    src="../../static/blog/picture/web1.jpg"
-                                    srcset="/media/article_img/2018/10/07/web1.jpg"
-                                    alt="网站设计-不只是门面漂亮这么简单" class="wp-post-image" width="145"
-                                    height="100"/></a>
-                        </div>
-                        <a class="descript " href="/show-7.html" rel="bookmark"
-                           title="网站设计-不只是门面漂亮这么简单">网站设计-不只是门面漂亮这么简单</a>
-                    </li>
-                
-                    <li>
-                        <div class="pic">
-                            <a href="/show-12.html" title="30个别出心裁的WordPress设计"><img
-                                    src="../../static/blog/picture/wpress29.jpg"
-                                    srcset="/media/article_img/2018/10/07/wpress29.jpg"
-                                    alt="30个别出心裁的WordPress设计" class="wp-post-image" width="145"
-                                    height="100"/></a>
-                        </div>
-                        <a class="descript " href="/show-12.html" rel="bookmark"
-                           title="30个别出心裁的WordPress设计">30个别出心裁的WordPress设计</a>
-                    </li>
-                
-                    <li>
-                        <div class="pic">
-                            <a href="/show-3.html" title="微软发布IE10预览版 或增加IE5浏览模式 提供下载"><img
-                                    src="../../static/blog/picture/ie10-3.jpg"
-                                    srcset="/media/article_img/2018/10/07/IE10-3.jpg"
-                                    alt="微软发布IE10预览版 或增加IE5浏览模式 提供下载" class="wp-post-image" width="145"
-                                    height="100"/></a>
-                        </div>
-                        <a class="descript " href="/show-3.html" rel="bookmark"
-                           title="微软发布IE10预览版 或增加IE5浏览模式 提供下载">微软发布IE10预览版 或增加IE5浏览模式 提供下载</a>
-                    </li>
-                
-                    <li>
-                        <div class="pic">
-                            <a href="/show-10.html" title="手机端阅读类产品的信息架构"><img
-                                    src="../../static/blog/picture/shouji.jpeg"
-                                    srcset="/media/article_img/2018/10/07/shouji.jpeg"
-                                    alt="手机端阅读类产品的信息架构" class="wp-post-image" width="145"
-                                    height="100"/></a>
-                        </div>
-                        <a class="descript " href="/show-10.html" rel="bookmark"
-                           title="手机端阅读类产品的信息架构">手机端阅读类产品的信息架构</a>
-                    </li>
-                
-                    <li>
-                        <div class="pic">
-                            <a href="/show-8.html" title="谷歌用户体验设计准则"><img
-                                    src="../../static/blog/picture/tx_3zybskx.jpg"
-                                    srcset="/media/article_img/2018/10/07/tx_3zybSKX.jpg"
-                                    alt="谷歌用户体验设计准则" class="wp-post-image" width="145"
-                                    height="100"/></a>
-                        </div>
-                        <a class="descript " href="/show-8.html" rel="bookmark"
-                           title="谷歌用户体验设计准则">谷歌用户体验设计准则</a>
-                    </li>
-                
-                    <li>
-                        <div class="pic">
-                            <a href="/show-5.html" title="简单HTML5打造内涵搜索框"><img
-                                    src="../../static/blog/picture/web1_if1rrie.jpg"
-                                    srcset="/media/article_img/2018/10/07/web1_If1RRie.jpg"
-                                    alt="简单HTML5打造内涵搜索框" class="wp-post-image" width="145"
-                                    height="100"/></a>
-                        </div>
-                        <a class="descript " href="/show-5.html" rel="bookmark"
-                           title="简单HTML5打造内涵搜索框">简单HTML5打造内涵搜索框</a>
-                    </li>
-                
-                </ul>
+            <div class="widget post-right-item" id="comment-block">
+                {% include 'comment/comment_form.html' %}
+                {% get_parent_comments articles as comment_list %}
+                {% include 'comment/comment_list.html' %}
             </div>
-
+{#        <div class="col-lg-3">#}
+{#            <div class="article-toc d-none d-lg-block f-16">#}
+{#                {{ articles.toc|safe }}#}
+{#            </div>#}
+{#        </div>#}
 
         </section>
         <!-- /post-left -->
@@ -185,4 +75,16 @@
 
 
 <!-- 底部 -->
+{% endblock %}
+
+{% block footer %}
+{% if user.is_authenticated %}
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script src="{% static 'comment/js/editor.js' %}?v=20180113.05907"></script>
+<script src="{% static 'comment/js/activate-power.js' %}?v=20180120"></script>
+<script>
+var sw=window.screen.width;if(sw>1200){POWERMODE.colorful=true;POWERMODE.shake=false;document.body.addEventListener('input',POWERMODE)};
+
+</script>
+{% endif %}
 {% endblock %}

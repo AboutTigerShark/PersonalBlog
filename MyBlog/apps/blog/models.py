@@ -70,6 +70,11 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
+    # 浏览量+1
+    def viewed(self):
+        self.scan_num += 1
+        self.save(update_fields=['scan_num'])
+
 
 class Banner(models.Model):
     order_index = models.IntegerField(max_length=10, verbose_name='轮播顺序')

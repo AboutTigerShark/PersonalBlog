@@ -47,19 +47,19 @@
 
 
 </ul>
-</nav>
     <form method="get" class="index-search  hidden-xs" action="/s/" >
         <input class="text" name="search" type="text" placeholder="输入关键字" value="">
         <button class="submit" type="submit"><i class="fa fa-search"></i></button>
     </form>
-    <div class="login_register">
+        <div class="login_register">
         {% if user.is_authenticated %}
           <div class="wrapper-demo">
             <!-----start-wrapper-dropdown-2---->
-            <div id="dd" class="wrapper-dropdown-2"><span><img src="/media/upic/default.png"/></span>
+            <div id="dd" class="wrapper-dropdown-2">
+                <p>{{ user.username}}</p>
                 <ul class="dropdown">
                     <li><a href="{% url 'oauth:profile' %}" title="个人资料"><i class="icon stat"></i></a></li>
-                    <li><a href="#" title="消息"><i class="icon"></i> </a></li>
+{#                    <li><a href="#" title="消息"><i class="icon"></i> </a></li>#}
 <!--                    <li><a href="#"><i class="icon msg"></i></a></li>-->
                     <li><a href="/accounts/logout/" title="退出"><i class="icon signout"></i></a></li>
                 </ul>
@@ -70,8 +70,11 @@
         <a class="login_link" href="/accounts/login/">登录</a>
         {% endif %}
     </div>
-    </div>
+</nav>
+
+
 </div>
+
 
 </header>
 {% block content%}{% endblock %}
@@ -82,14 +85,16 @@
 {#    · <a href="https://www.django.cn">TigerShark个人博客</a>#}
 {#    · <a href="http://www.miibeian.gov.cn" target="_blank">湘ICP备17023990号</a> 版权所有 © TigerShark</div>#}
 {#</footer>#}
-{% block footer %}
 
-{% endblock %}
 <script src="{% static "blog/js/bundle.js" %}"></script>
 <script type="text/javascript" src="{% static "blog/js/view-history.js" %}"></script>
 <script type='text/javascript' src="{% static "blog/js/push.js" %}"></script>
 <script type='text/javascript' src='{% static "blog/js/jquery.min.js" %}'></script>
 <script type='text/javascript' src='{% static "blog/js/bootstrap.min.js" %}'></script>
+{% block footer %}
+
+{% endblock %}
+
 <script type='text/javascript' src='{% static "blog/js/raxus-slider.min.js" %}'></script>
 <script type='text/javascript' src='{% static "blog/js/loader.js" %}'></script>
 <script type='text/javascript' src='{% static "blog/js/bj-lazy-load.min.js" %}'></script>

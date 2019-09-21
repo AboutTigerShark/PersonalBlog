@@ -2,7 +2,7 @@
 
 {% load i18n %}
 {% load account socialaccount %}
-
+{% load crispy_forms_tags %}
 
 {% block form %}
 
@@ -37,20 +37,14 @@
 {#  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>#}
 {#  <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>#}
 {#</form>#}
-	<form action="{% url 'account_login' %}" class="fh5co-form animate-box" data-animate-effect="fadeIn" method="post">
+	<form action="{% url 'account_login' %}" class="fh5co-form animate-box" data-animate-effect="fadeIn" method="post" id="login_form">
 						{% csrf_token %}
                         <h2>登 录</h2>
-                        {% for field in form %}
-						<div class="form-group">
-                         {{ field.errors }}
-                            {{ field.label_tag }}&nbsp;&nbsp;{{ field }}
-                             {% if field.help_text %}
-                         <p class="help">{{ field.help_text|safe }}</p>
-                            {% endif %}
+                        {{ form|crispy }}
+{#						<div class="form-group">#}
+{#                          #}
+{#						</div>#}
 
-						</div>
-
-                        {% endfor %}
 
                         {% if redirect_field_value %}
                         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />

@@ -60,6 +60,7 @@ zoom: 1; vertical-align: top; margin-top: 5px; margin-left: -8px; line-height: 1
 /* 首页导航条带图片轮播 */
 .login_link {float: right; margin-right: 10px}
 .register-link {float: right; margin-right: 20px}
+.login_register {float: left; margin-left: 100px;}
 .login_register a:hover { color: red; }
 .fix-wrap { width: 100%; height: 34px; line-height: 34px; padding: 15px 0; background-color: #F9F9F9;/*position: relative;*/ z-index: 100; position: fixed; left: 0; border-top: #222 0px solid; box-sizing: content-box; -moz-box-sizing: content-box; }
 .fix-wrap a { color: #333; }
@@ -114,8 +115,7 @@ zoom: 1; vertical-align: top; max-width: 100px; }
 .index-login { float: right; }
 .index-login a { margin-right: 20px; }
 .index-login a:last-child { margin-right: 10px; }
-.index-search { float: left; position: relative; display: block; *width:205px;
-height: 32px; margin-top: 1px; margin-left: 240px; }
+.index-search { float: left; position: relative; display: block; *width:205px; height: 32px; margin-top: 1px;  margin-left: 100px;}
 .index-search input { background-color: #F1F1F1; background-color: rgba(241,241,241,.2); filter: alpha(opacity=40); border: 1px solid rgba(204, 204, 204, .5); line-height: 20px; padding: 5px 40px 5px 10px; vertical-align: top; border-radius: 2px; }
 .index-search input:focus { background-color: rgba(241,241,241,.3); }
 .index-search-btn { position: absolute; width: 32px; height: 32px; right: 0; top: 0; background-position: 8px 8px; background-repeat: no-repeat; }
@@ -667,10 +667,10 @@ margin-left: 0; margin-bottom: 0; padding: 0 }
 
 .wrapper-demo
 {
-	width:50px;
+	width:auto;
 	height:20px;
-	float: right;
-	margin-right: 20px;
+	float: left;
+	/*margin-right: 20px;*/
 
 }
 /****-----start-wrapper-dropdown-2----****/
@@ -692,6 +692,7 @@ margin-left: 0; margin-bottom: 0; padding: 0 }
 	padding: 13px 0px;
 }
 .dropdown:before {
+
 	content: "";
 	width: 0;
 	height: 0;
@@ -716,7 +717,9 @@ margin-left: 0; margin-bottom: 0; padding: 0 }
 .wrapper-dropdown-2 .dropdown {
 	/* Size & position */
 	position: absolute;
+	width:50px;
 	top: 118%;
+	margin :auto;
 	left: 0px;
 	right: 0px;
 	border-radius:5px;
@@ -815,19 +818,18 @@ margin-left: 0; margin-bottom: 0; padding: 0 }
 	text-align: left;
 }
 /*****/
-.wrapper-dropdown-2 span {
-	float: right;
-	width: 50px;
-	height: 50px;
+.wrapper-dropdown-2 p{
+	padding-top: 7px;
+	float: left;
+	width: auto;
+	height: 20px;
+	border-color: black;
 	/*vertical-align: middle;*/
-	background: #C75A2B;
+	background: ghostwhite;
 	/*padding: 19px 20px 13px;*/
 	margin-top: -18px;
 }
-.wrapper-dropdown-2 span img{
-	width: 50px;
-	height: 50px;
-}
+
 .icon{
 	background: url(../images/spriteimgs.png) no-repeat 0px 0px;
 	width: 18px;
@@ -1027,3 +1029,4 @@ input, textarea {
 .js .animate-box {
   opacity: 0;
 }
+

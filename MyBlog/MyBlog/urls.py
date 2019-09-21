@@ -14,17 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 # from django.contrib import admin
+from django.contrib import admin
 from django.urls import path, re_path, include
 from django.views.static import serve
 import xadmin
 from .settings import MEDIA_ROOT, STATICFILES_DIRS
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
-    re_path(r'^xadmin/', xadmin.site.urls),
+    path('admin/', admin.site.urls),
+    # re_path(r'^xadmin/', xadmin.site.urls),
     re_path(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),  # 能直接访问media文件
     # re_path(r'^static/(?P<path>.*)$', serve, {'document_root': STATICFILES_DIRS}, name='static'),
     path('', include('blog.urls')),
+    path('', include('comment.urls')),
     path('accounts/', include('oauth.urls')),
     path('accounts/', include('allauth.urls')),
 ]
