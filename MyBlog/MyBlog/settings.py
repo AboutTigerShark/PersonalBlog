@@ -31,7 +31,7 @@ pymysql.install_as_MySQLdb()
 SECRET_KEY = '0!2%%q1pjb0@hr7t=b&_ezntlb$@)12qi&&4u&9mdp#bngl+g3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -126,8 +126,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': "blog",
         'USER': 'root',
-        'PASSWORD': "",
-        'HOST': "localhost",
+        'PASSWORD': "Mysql@root1",
+        'HOST': "127.0.0.1",
         'PORT': 3306,
         # 'OPTIONS': {'init_command': 'SET storage_engine=INNODB;'},
         "OPTIONS": {"init_command": "SET default_storage_engine=INNODB;"}
