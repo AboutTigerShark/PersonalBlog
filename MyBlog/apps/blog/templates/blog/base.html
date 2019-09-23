@@ -46,8 +46,8 @@
 
 
 </ul>
-    <form method="get" class="index-search  hidden-xs" action="/s/" >
-        <input class="text" name="search" type="text" placeholder="输入关键字" value="">
+    <form method="get" class="index-search  hidden-xs" action="{% url 'search' %}" >
+        <input class="text" name="keyword" type="text" placeholder="输入关键字" value="">
         <button class="submit" type="submit"><i class="fa fa-search"></i></button>
     </form>
         <div class="login_register">

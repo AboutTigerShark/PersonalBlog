@@ -2,6 +2,7 @@ import re
 import time
 from datetime import datetime
 
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
@@ -134,6 +135,23 @@ class AllArticleListView(ListView):
             return ('-scan_num')
         return ordering
 
+
+class SearchListView(ListView):
+    model = Article
+    template_name = 'blog/search.html'
+    context_object_name = 'articles'
+    paginate_by = 1
+
+    def get_queryset(self):
+        queryset = super(SearchListView, self).get_queryset()
+        keyword = self.request.GET.get('keyword')
+        articles = queryset.filter(Q(title__icontains=keyword) | Q(content__icontains=keyword))
+        return articles
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(SearchListView, self).get_context_data()
+        context['keyword'] = self.request.GET.get('keyword')
+        return context
 
 def aboutme(request):
     return render(request, 'blog/aboutme.html')

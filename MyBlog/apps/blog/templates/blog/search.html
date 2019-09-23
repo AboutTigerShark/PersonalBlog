@@ -1,0 +1,66 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+   <div id="main-container" class="container clearfix">
+        <section class="post-left">
+<div class="breadcrumb">您的位置： <a itemprop="breadcrumb" href="{% url 'index' %}">首页</a> »
+<span class="current">关键词：{{ keyword }}</span></div>
+<div class="main-title">
+    <h4 class="post-left-title">关键词：{{ keyword }}</h4>
+</div>
+    {% if articles %}
+   {% for list in articles %}
+<div class="article-box clearfix excerpt-1">
+<div class="col-md-4">
+
+    <div class="thumbnail">
+        <a href="{% url 'article_detail' list.slug %}" title="{{ list.title }}">
+            <img src="/media/{{ list.img_link }}"
+                 srcset="/media/{{ list.img_link }}"
+                 alt="{{ list.title }}" class="wp-post-image" width="240" height="160"/></a>
+    </div>
+</div>
+<div class="col-md-8">
+    <h2><a href="{% url 'article_detail' list.slug %}" target="_blank"
+           title="{{ list.title }}">{{ list.title }}</a></h2>
+    <p class="txtcont hidden-xs"><a href="{% url 'article_detail' list.slug %}"
+                                    target="_blank"
+                                    title="{{ list.title }}">{{ list.desc }}</a></p>
+    <div class="meta"><span class="label label-info"><a
+            href="{% url 'category_list' list.category.slug %}">{{ list.category.name }}</a></span>
+        <time class="item"><i
+                class="fa fa-clock-o"></i>{{ list.create_time }}
+        </time>
+    </div>
+</div>
+</div>
+{% endfor %}
+        {% else %}
+<span>搜索的内容为空!</span>
+{% endif %}
+<div class="pagination">
+        {% if is_paginated %}
+        <ul>
+            {% if page_obj.has_previous %}
+             <li class="prev-page"><a href="?page={{ page_obj.previous_page_number }}">上一页</a></li>
+            {% endif %}
+{#                    <li class="active"><span>1</span></li>#}
+{#                    <li><a href="?page=2">2</a></li>#}
+        <li class="">
+             <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+        </li>
+            {% if page_obj.has_next %}
+            <li class="next-page"><a href="?page={{ page_obj.next_page_number }}">下一页</a></li>
+          {% endif %}
+        {% endif %}
+        </ul>
+</div>
+        </section>
+         {% include 'blog/right.html' %}
+
+
+</div>
+
+
+{% endblock %}

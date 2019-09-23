@@ -1,6 +1,7 @@
 # coding:utf-8
 from django.urls import re_path, path
-from blog.views import IndexView, CategoryListView, TagsListView, ArticleDetailView, AllArticleListView, aboutme
+from blog.views import IndexView, CategoryListView, TagsListView, ArticleDetailView, AllArticleListView, aboutme, \
+    SearchListView
 
 urlpatterns = [
     re_path('^index/$', IndexView.as_view(), name='index'),
@@ -11,6 +12,7 @@ urlpatterns = [
     re_path(r'article-(?P<slug>[\d])/$', ArticleDetailView.as_view(), name='article_detail'),
     re_path(r'blog/$', AllArticleListView.as_view(), name='all_articles'),
     re_path('blog/hot/$', AllArticleListView.as_view(), kwargs={'sort': 1}, name='all_articles_hot'),
-    re_path(r'about/$', aboutme, name='aboutme')
+    re_path(r'about/$', aboutme, name='aboutme'),
+    re_path(r'search/$', SearchListView.as_view(), name='search')
     # re_path(r'list/', ArticleListView.as_view(), name='list')
 ]
