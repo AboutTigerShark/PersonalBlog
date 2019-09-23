@@ -1,3 +1,4 @@
+import re
 import time
 from datetime import datetime
 
@@ -9,13 +10,20 @@ from django.views.generic import ListView, DetailView
 from blog.models import Article, Tags, Category
 
 
+def is_hot(path):
+    s = re.search(r'.*hot.*', path)
+    if s:
+        return True
+    return False
+
+
 class IndexView(ListView):
     model = Article
     template_name = 'blog/index.html'
     context_object_name = 'articles'
 
     def get_queryset(self):
-        article = Article.objects.all()[0:6]
+        article = Article.objects.all()
         return article
 
 
@@ -23,6 +31,7 @@ class CategoryListView(ListView):
     model = Article
     template_name = 'blog/category_list.html'
     context_object_name = 'articles'
+    paginate_by = 1
 
     def get_queryset(self, **kwargs):
         queryset = super(CategoryListView, self).get_queryset()
@@ -36,16 +45,24 @@ class CategoryListView(ListView):
         context['Category'] = cate
         return context
 
+    def get_ordering(self):
+        ordering = super(CategoryListView, self).get_ordering()
+        path = self.request.path
+        hot = is_hot(path)
+        if hot:
+            return ('-scan_num')
+        return ordering
+
 
 class TagsListView(ListView):
     model = Article
     template_name = 'blog/tags_list.html'
     context_object_name = 'articles'
+    paginate_by = 1
 
     def get_queryset(self, **kwargs):
         queryset = super(TagsListView, self).get_queryset()
         tag = get_object_or_404(Tags, slug=self.kwargs.get('slug'))
-        q = super().get_queryset()
         return queryset.filter(tags=tag)
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -53,6 +70,14 @@ class TagsListView(ListView):
         tag = get_object_or_404(Tags, slug=self.kwargs.get('slug'))
         context['Tags'] = tag
         return context
+
+    def get_ordering(self):
+        ordering = super(TagsListView, self).get_ordering()
+        path = self.request.path
+        hot = is_hot(path)
+        if hot:
+            return ('-scan_num')
+        return ordering
 
 
 class ArticleDetailView(DetailView):
@@ -99,3 +124,16 @@ class AllArticleListView(ListView):
     model = Article
     template_name = 'blog/blog_articles.html'
     context_object_name = 'articles'
+    paginate_by = 1
+
+    def get_ordering(self):
+        ordering = super(AllArticleListView, self).get_ordering()
+        path = self.request.path
+        hot = is_hot(path)
+        if hot:
+            return ('-scan_num')
+        return ordering
+
+
+def aboutme(request):
+    return render(request, 'blog/aboutme.html')

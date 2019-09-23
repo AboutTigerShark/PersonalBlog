@@ -1,4 +1,4 @@
-﻿{% extends 'blog/base.html' %}]
+﻿{% extends 'blog/base.html' %}
 {% load staticfiles %}
 {% load index_tags%}
 {% block content %}
@@ -95,20 +95,22 @@
                 </div>
             </section>
             <!-- /关注我们 -->
-            <div class="post-right-item">
-                <h4 class="post-right-title">关注我们</h4>
+                <div class="post-right-item">
+                <h4 class="post-right-title">联系方式</h4>
                 <div class="wid-about">
-                    <p>拓普Python学院，欢迎关注！</p>
-                    <img src="../../static/blog/picture/weixinqr.jpg" alt="微信二维码-互联网的一些事" width="160" height="160">
+                    <p>TigerShark个人博客, 欢迎！</p>
+                    <img src="{% static 'blog/picture/weixin.jpg' %}" width="160" height="160">
                 </div>
                 <div class="wid-about">
                     <p><strong>联系方式:</strong></p>
-                    <p>QQ:445813</p>
-                    <p>Email：445813@qq.com</p>
+                    <p>QQ:781977456</p>
+                    <p>Email：781977456@qq.com</p>
                 </div>
-            </div>
+                </div>
+                   </aside>
+    </div>
 
-        </aside>
+
         <div class="FriendLink hidden-xs clearfix">
             <div class="title"><h3>友情链接：</h3></div>
             <ul class="clears">

@@ -1,0 +1,31 @@
+
+{% load static%}
+<div class="summary-list">
+
+                        {% for article in articles %}
+                        <div class="article-box clearfix excerpt-1">
+                            <div class="col-md-4">
+                                <div class="thumbnail">
+                                    <a href="" title="{{ article.title }}">
+                                        <img src="/media/{{ article.img_link }}"
+                                             alt="{{ article.title }}" class="wp-post-image" width="240" height="160"/></a>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h2><a href="{% url 'article_detail' article.slug %}" target="_blank"
+                                       title="{{ article.title }}">{{ article.title }}</a></h2>
+                                <p class="txtcont hidden-xs"><a href="{% url 'article_detail' article.slug %}"
+                                                                target="_blank"
+                                                                title="{{ article.title }}">{{ article.desc }}</a></p>
+                                <div class="meta"><span class="label label-info"><a
+                                        href="{% url 'category_list' article.category.slug %}">{{ article.category.name }}</a></span>
+                                    <time class="item"><i
+                                            class="fa fa-clock-o"></i>{{ article.create_time }}
+                                    </time>
+                                </div>
+                            </div>
+                        </div>
+{#                                </li>#}
+                                {% endfor %}
+{#                                </ul>#}
+                            </div>

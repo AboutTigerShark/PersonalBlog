@@ -12,7 +12,7 @@ def get_hot_article():
     """
     获取最热门文章
     """
-    article = Article.objects.order_by('-scan_num')[0:10]
+    article = Article.objects.order_by('-scan_num')
     return article
 
 
@@ -54,15 +54,21 @@ def get_friend_link():
     return friend_link[0:5]
 
 
-@register.simple_tag()
-def list_hot(queryset):
-    """
-    按热度排序
-    :param queryset:
-    :return:
-    """
-    hot_list = queryset.order_by('-scan_num')
-    return hot_list
+@register.inclusion_tag('blog/tags/article_list.html')
+def load_article_summary(articles):
+    '''返回文章列表模板'''
+    return {'articles': articles}
+
+
+# @register.simple_tag()
+# def list_hot(queryset):
+#     """
+#     按热度排序
+#     :param queryset:
+#     :return:
+#     """
+#     hot_list = queryset.order_by('-scan_num')
+#     return hot_list
 
 
 
